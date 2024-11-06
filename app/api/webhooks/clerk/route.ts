@@ -59,13 +59,20 @@ export async function POST(req: Request) {
   // CREATE
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
-
+    let fn = first_name;
+    let ln = last_name;
+    if(first_name==null){
+      fn = "none";
+    }
+    if(last_name==null){
+      ln = "none";
+    }
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
       username: username!,
-      firstName: first_name||"",
-      lastName: last_name||"",
+      firstName: fn,
+      lastName: ln,
       photo: image_url,
     };
 
@@ -80,10 +87,17 @@ export async function POST(req: Request) {
   // UPDATE
   if (eventType === "user.updated") {
     const { id, image_url, first_name, last_name, username } = evt.data;
-
+    let fn = first_name;
+    let ln = last_name;
+    if(first_name==null){
+      fn = "none";
+    }
+    if(last_name==null){
+      ln = "none";
+    }
     const user = {
-      firstName: first_name,
-      lastName: last_name,
+      firstName:fn,
+      lastName: ln,
       username: username!,
       photo: image_url,
     };
